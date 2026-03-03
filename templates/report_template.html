@@ -2,147 +2,130 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>GRM Summary Report</title>
 
 <style>
-body { font-family: Arial; background:#f4f6f9; margin:0; padding:0; }
 
-.container {
-    width: 900px;
-    margin: 40px auto;
-    background: white;
-    padding: 50px;
-    border: 3px solid #1f3c88;
+@page {
+    size: A4;
+    margin: 20mm 20mm 25mm 20mm;
 }
 
-.center { text-align: center; }
-
-h2 { margin-bottom: 5px; }
-
-input, select {
-    border: none;
-    border-bottom: 1px solid black;
-    font-size: 14px;
-    padding: 4px;
-    outline: none;
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    line-height: 1.6;
 }
 
-.inline { width: 180px; }
-.wide { width: 400px; }
-
-button {
-    margin-top: 40px;
-    width: 100%;
-    padding: 14px;
-    background: #1f3c88;
-    color: white;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
+.page-wrapper {
+    border: 3px solid #1f4ea3;   /* BLUE BORDER */
+    padding: 30px;
+    min-height: 90vh;
 }
 
-button:hover { background:#163172; }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 85px;
+}
+
+.center {
+    text-align: center;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 15pt;
+    margin-top: 10px;
+}
+
+.subtitle {
+    margin-top: 5px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 10mm;
+    left: 20mm;
+    right: 20mm;
+    text-align: center;
+    font-size: 10pt;
+    border-top: 1px solid #1f4ea3;
+    padding-top: 5px;
+}
+
 </style>
 </head>
 
 <body>
-<div class="container">
 
-<form action="/generate" method="post">
+<div class="page-wrapper">
 
+<!-- HEADER WITH LOGOS -->
+<div class="header">
+    <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
+    <img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
+</div>
+
+<!-- TITLE SECTION -->
 <div class="center">
-<h2>SUMMARY REPORT</h2>
-
-<input type="text" name="job_scope" class="wide center"
-placeholder="Job Scope"><br><br>
-
-MV. "<input type="text" name="vessel" class="inline"
-placeholder="Vessel">"
+    <div class="title">SUMMARY REPORT</div>
+    <div class="subtitle">
+        <b>{{ job_scope }}</b><br>
+        MV. "<b>{{ vessel }}</b>"
+    </div>
 </div>
 
 <br>
 
-Dear <input type="text" name="principal" class="inline"
-placeholder="Principal">,
+Dear <b>{{ principal }}</b>,
 
 <br><br>
 
-We are pleased to confirm that our surveyor
-<input type="text" name="surveyor" class="inline"
-placeholder="Surveyor">
-has attended on board the vessel
-"<input type="text" name="vessel" class="inline"
-placeholder="Vessel">"
-at
-<input type="text" name="port" class="inline"
-placeholder="Port">
-to carry out
-<input type="text" name="job_scope" class="inline"
-placeholder="Job Scope">
-on
-<input type="text" name="survey_date" class="inline"
-placeholder="Survey Date">.
+<p class="justify">
+We are pleased to confirm that our surveyor <b>{{ surveyor }}</b>
+has attended on board the vessel "<b>{{ vessel }}</b>"
+at <b>{{ port }}</b>
+to carry out <b>{{ job_scope }}</b>
+on <b>{{ survey_date }}</b>.
+</p>
+
+{% if bunker1_supply == "yes" %}
+<p class="justify">
+The bunker transferring of <b>{{ bunker1_name }}</b>
+commenced at <b>{{ bunker1_commenced_hour }}</b>
+on <b>{{ bunker1_commenced_date }}</b>
+and completed at <b>{{ bunker1_completed_hour }}</b>
+on <b>{{ bunker1_completed_date }}</b>.
+</p>
+{% endif %}
+
+<br>
+
+Owner : <b>{{ owner }}</b><br>
+Charterer : <b>{{ charterer }}</b><br>
+Chief Engineer : <b>{{ chief_engineer }}</b><br>
+Master : <b>{{ master }}</b>
 
 <br><br>
 
-<b>Bunker Supply 1:</b>
-<select name="bunker1_supply">
-<option value="no">No</option>
-<option value="yes">Yes</option>
-</select>
-
-<br><br>
-
-Bunker
-<input type="text" name="bunker1_name" class="inline">
-Commenced at
-<input type="text" name="bunker1_commenced_hour" class="inline">
-on
-<input type="text" name="bunker1_commenced_date" class="inline">
-Completed at
-<input type="text" name="bunker1_completed_hour" class="inline">
-on
-<input type="text" name="bunker1_completed_date" class="inline">
-
-<br><br>
-
-<b>Bunker Supply 2:</b>
-<select name="bunker2_supply">
-<option value="no">No</option>
-<option value="yes">Yes</option>
-</select>
-
-<br><br>
-
-Bunker
-<input type="text" name="bunker2_name" class="inline">
-Commenced at
-<input type="text" name="bunker2_commenced_hour" class="inline">
-on
-<input type="text" name="bunker2_commenced_date" class="inline">
-Completed at
-<input type="text" name="bunker2_completed_hour" class="inline">
-on
-<input type="text" name="bunker2_completed_date" class="inline">
-
-<br><br>
-
-Owner:
-<input type="text" name="owner" class="wide"><br><br>
-
-Charterer:
-<input type="text" name="charterer" class="wide"><br><br>
-
-Chief Engineer:
-<input type="text" name="chief_engineer" class="wide"><br><br>
-
-Master:
-<input type="text" name="master" class="wide">
-
-<button type="submit">Generate PDF</button>
-
-</form>
+Date of Issue : <b>{{ issue_date }}</b>
 
 </div>
+
+<!-- FOOTER -->
+<div class="footer">
+GRM MARINE PTE LTD<br>
+2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
+24 Hrs Emergency Contact : +65 96576310 | ops@grm.sg | www.grm.sg
+</div>
+
 </body>
 </html>

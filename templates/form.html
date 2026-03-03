@@ -5,87 +5,131 @@
 <title>GRM Summary Report</title>
 
 <style>
-body { font-family: Arial; background:#f4f6f9; margin:0; padding:0; }
 
-.container {
-    width: 900px;
-    margin: 40px auto;
-    background: white;
-    padding: 50px;
-    border: 3px solid #1f3c88;
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
 }
 
-.center { text-align: center; }
+.page-wrapper {
+    width: 850px;
+    margin: 40px auto;
+    background: white;
+    border: 3px solid #1f4ea3;
+    padding: 30px;
+}
 
-h2 { margin-bottom: 5px; }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+}
+
+.center {
+    text-align: center;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 14pt;
+    margin-top: 10px;
+}
+
+.subtitle {
+    margin-top: 5px;
+}
 
 input, select {
     border: none;
     border-bottom: 1px solid black;
-    font-size: 14px;
-    padding: 4px;
+    font-size: 12pt;
+    font-weight: bold;
     outline: none;
+    min-width: 60px;
+    width: auto;
 }
 
-.inline { width: 180px; }
-.wide { width: 400px; }
+.inline-input {
+    display: inline-block;
+}
+
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 10pt;
+    border-top: 1px solid #1f4ea3;
+    padding-top: 5px;
+}
 
 button {
-    margin-top: 40px;
+    margin-top: 30px;
     width: 100%;
     padding: 14px;
-    background: #1f3c88;
+    background: #1f4ea3;
     color: white;
     border: none;
     font-size: 16px;
     cursor: pointer;
 }
 
-button:hover { background:#163172; }
+button:hover {
+    background: #163b7a;
+}
+
 </style>
 </head>
 
 <body>
-<div class="container">
+
+<div class="page-wrapper">
 
 <form action="/generate" method="post">
 
+<!-- HEADER -->
+<div class="header">
+    <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
+    <img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
+</div>
+
+<!-- TITLE -->
 <div class="center">
-<h2>SUMMARY REPORT</h2>
-
-<input type="text" name="job_scope" class="wide center"
-placeholder="Job Scope"><br><br>
-
-MV. "<input type="text" name="vessel" class="inline"
-placeholder="Vessel">"
+    <div class="title">SUMMARY REPORT</div>
+    <div class="subtitle">
+        <input type="text" name="job_scope" placeholder="Job Scope">
+        <br>
+        MV. "<input type="text" name="vessel" placeholder="Vessel">"
+    </div>
 </div>
 
 <br>
 
-Dear <input type="text" name="principal" class="inline"
-placeholder="Principal">,
+Dear <input type="text" name="principal" placeholder="Principal">,
 
 <br><br>
 
+<p class="justify">
 We are pleased to confirm that our surveyor
-<input type="text" name="surveyor" class="inline"
-placeholder="Surveyor">
+<input type="text" name="surveyor" placeholder="Surveyor">
 has attended on board the vessel
-"<input type="text" name="vessel" class="inline"
-placeholder="Vessel">"
-at
-<input type="text" name="port" class="inline"
-placeholder="Port">
-to carry out
-<input type="text" name="job_scope" class="inline"
-placeholder="Job Scope">
-on
-<input type="text" name="survey_date" class="inline"
-placeholder="Survey Date">.
+"<input type="text" name="vessel_copy" placeholder="Vessel">"
+at <input type="text" name="port" placeholder="Port">
+to carry out <input type="text" name="job_scope_copy" placeholder="Job Scope">
+on <input type="text" name="survey_date" placeholder="Survey Date">.
+</p>
 
-<br><br>
+<br>
 
-<b>Bunker Supply 1:</b>
+Bunker Supply 1:
 <select name="bunker1_supply">
 <option value="no">No</option>
 <option value="yes">Yes</option>
@@ -93,56 +137,44 @@ placeholder="Survey Date">.
 
 <br><br>
 
-Bunker
-<input type="text" name="bunker1_name" class="inline">
-Commenced at
-<input type="text" name="bunker1_commenced_hour" class="inline">
+The bunker transferring of
+<input type="text" name="bunker1_name" placeholder="Bunker Name">
+commenced at
+<input type="text" name="bunker1_commenced_hour" placeholder="Hour">
 on
-<input type="text" name="bunker1_commenced_date" class="inline">
-Completed at
-<input type="text" name="bunker1_completed_hour" class="inline">
+<input type="text" name="bunker1_commenced_date" placeholder="Date">
+and completed at
+<input type="text" name="bunker1_completed_hour" placeholder="Hour">
 on
-<input type="text" name="bunker1_completed_date" class="inline">
+<input type="text" name="bunker1_completed_date" placeholder="Date">.
 
 <br><br>
 
-<b>Bunker Supply 2:</b>
-<select name="bunker2_supply">
-<option value="no">No</option>
-<option value="yes">Yes</option>
-</select>
-
-<br><br>
-
-Bunker
-<input type="text" name="bunker2_name" class="inline">
-Commenced at
-<input type="text" name="bunker2_commenced_hour" class="inline">
-on
-<input type="text" name="bunker2_commenced_date" class="inline">
-Completed at
-<input type="text" name="bunker2_completed_hour" class="inline">
-on
-<input type="text" name="bunker2_completed_date" class="inline">
-
-<br><br>
-
-Owner:
-<input type="text" name="owner" class="wide"><br><br>
-
-Charterer:
-<input type="text" name="charterer" class="wide"><br><br>
-
-Chief Engineer:
-<input type="text" name="chief_engineer" class="wide"><br><br>
-
-Master:
-<input type="text" name="master" class="wide">
+Owner : <input type="text" name="owner" placeholder="Owner"><br><br>
+Charterer : <input type="text" name="charterer" placeholder="Charterer"><br><br>
+Chief Engineer : <input type="text" name="chief_engineer" placeholder="Chief Engineer"><br><br>
+Master : <input type="text" name="master" placeholder="Master">
 
 <button type="submit">Generate PDF</button>
 
 </form>
 
+<div class="footer">
+GRM MARINE PTE LTD<br>
+2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
+24 Hrs Emergency Contact : +65 96576310 | ops@grm.sg | www.grm.sg
 </div>
+
+</div>
+
+<script>
+/* Auto resize input width */
+document.querySelectorAll("input[type='text']").forEach(input => {
+    input.addEventListener("input", function() {
+        this.style.width = (this.value.length + 1) + "ch";
+    });
+});
+</script>
+
 </body>
 </html>
