@@ -8,17 +8,17 @@
 
 body {
     font-family: Arial, sans-serif;
+    font-size: 12pt;
+    line-height: 1.6;
     background: #f0f2f5;
-    margin: 0;
-    padding: 0;
 }
 
 .page-wrapper {
     width: 850px;
     margin: 40px auto;
-    background: white;
     border: 3px solid #1f4ea3;
     padding: 30px;
+    background: white;
 }
 
 .header {
@@ -28,20 +28,15 @@ body {
 }
 
 .logo {
-    height: 80px;
+    height: 85px;
 }
 
-.center {
-    text-align: center;
-}
-
-.justify {
-    text-align: justify;
-}
+.center { text-align: center; }
+.justify { text-align: justify; }
 
 .title {
     font-weight: bold;
-    font-size: 14pt;
+    font-size: 15pt;
     margin-top: 10px;
 }
 
@@ -59,18 +54,6 @@ input, select {
     width: auto;
 }
 
-.inline-input {
-    display: inline-block;
-}
-
-.footer {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 10pt;
-    border-top: 1px solid #1f4ea3;
-    padding-top: 5px;
-}
-
 button {
     margin-top: 30px;
     width: 100%;
@@ -86,6 +69,14 @@ button:hover {
     background: #163b7a;
 }
 
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 10pt;
+    border-top: 1px solid #1f4ea3;
+    padding-top: 5px;
+}
+
 </style>
 </head>
 
@@ -95,13 +86,11 @@ button:hover {
 
 <form action="/generate" method="post">
 
-<!-- HEADER -->
 <div class="header">
     <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
     <img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
 </div>
 
-<!-- TITLE -->
 <div class="center">
     <div class="title">SUMMARY REPORT</div>
     <div class="subtitle">
@@ -121,9 +110,9 @@ Dear <input type="text" name="principal" placeholder="Principal">,
 We are pleased to confirm that our surveyor
 <input type="text" name="surveyor" placeholder="Surveyor">
 has attended on board the vessel
-"<input type="text" name="vessel_copy" placeholder="Vessel">"
+"<input type="text" name="vessel" placeholder="Vessel">"
 at <input type="text" name="port" placeholder="Port">
-to carry out <input type="text" name="job_scope_copy" placeholder="Job Scope">
+to carry out <input type="text" name="job_scope" placeholder="Job Scope">
 on <input type="text" name="survey_date" placeholder="Survey Date">.
 </p>
 
@@ -131,8 +120,9 @@ on <input type="text" name="survey_date" placeholder="Survey Date">.
 
 Bunker Supply 1:
 <select name="bunker1_supply">
-<option value="no">No</option>
+<option value="">Select</option>
 <option value="yes">Yes</option>
+<option value="no">No</option>
 </select>
 
 <br><br>
@@ -150,10 +140,34 @@ on
 
 <br><br>
 
-Owner : <input type="text" name="owner" placeholder="Owner"><br><br>
-Charterer : <input type="text" name="charterer" placeholder="Charterer"><br><br>
-Chief Engineer : <input type="text" name="chief_engineer" placeholder="Chief Engineer"><br><br>
+Bunker Supply 2:
+<select name="bunker2_supply">
+<option value="">Select</option>
+<option value="yes">Yes</option>
+<option value="no">No</option>
+</select>
+
+<br><br>
+
+The bunker transferring of
+<input type="text" name="bunker2_name" placeholder="Bunker Name">
+commenced at
+<input type="text" name="bunker2_commenced_hour" placeholder="Hour">
+on
+<input type="text" name="bunker2_commenced_date" placeholder="Date">
+and completed at
+<input type="text" name="bunker2_completed_hour" placeholder="Hour">
+on
+<input type="text" name="bunker2_completed_date" placeholder="Date">.
+
+<br>
+
+<div class="center">
+Owner : <input type="text" name="owner" placeholder="Owner"><br>
+Charterer : <input type="text" name="charterer" placeholder="Charterer"><br>
+Chief Engineer : <input type="text" name="chief_engineer" placeholder="Chief Engineer"><br>
 Master : <input type="text" name="master" placeholder="Master">
+</div>
 
 <button type="submit">Generate PDF</button>
 
@@ -166,15 +180,6 @@ GRM MARINE PTE LTD<br>
 </div>
 
 </div>
-
-<script>
-/* Auto resize input width */
-document.querySelectorAll("input[type='text']").forEach(input => {
-    input.addEventListener("input", function() {
-        this.style.width = (this.value.length + 1) + "ch";
-    });
-});
-</script>
 
 </body>
 </html>
