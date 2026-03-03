@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 
 <style>
-
 @page {
     size: A4;
     margin: 25mm 20mm 25mm 20mm;
@@ -19,13 +18,11 @@ body {
 .page-border {
     border: 3px solid #1f3c88;
     padding: 25px;
-    min-height: 100%;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .logo {
@@ -47,29 +44,6 @@ body {
     text-align: justify;
 }
 
-.info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.info-table td {
-    padding: 4px 0;
-}
-
-.supply-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.supply-table th,
-.supply-table td {
-    border: 1px solid black;
-    padding: 5px;
-    text-align: center;
-}
-
 .footer {
     position: fixed;
     bottom: 15mm;
@@ -77,10 +51,9 @@ body {
     right: 20mm;
     text-align: center;
     font-size: 10pt;
-    border-top: 1px solid #000;
+    border-top: 1px solid black;
     padding-top: 5px;
 }
-
 </style>
 </head>
 
@@ -89,68 +62,53 @@ body {
 <div class="page-border">
 
 <div class="header">
-    <img src="static/grm_logo.png" class="logo">
-    <img src="static/sac_logo.png" class="logo">
+<img src="static/grm_logo.png" class="logo">
+<img src="static/sac_logo.png" class="logo">
 </div>
 
-<div class="title">
-    SUMMARY REPORT
-</div>
+<div class="title">SUMMARY REPORT</div>
 
 <div class="subtitle">
-    <b>{{ job_scope }}</b><br>
-    MV. "{{ vessel }}"
+<b>{{ job_scope }}</b><br>
+MV. "{{ vessel }}"
 </div>
 
 <p>Dear {{ principal }},</p>
 
 <p class="justify">
 We are pleased to confirm that our surveyor, <b>{{ surveyor }}</b> has attended
-on board the vessel “{{ vessel }}” at {{ port }} on {{ date }}
+on board the vessel "{{ vessel }}" at {{ port }} on {{ date }}
 to carry out {{ job_scope }}.
 </p>
 
-<table class="info-table">
-<tr><td><b>Owner:</b> {{ owner }}</td></tr>
-<tr><td><b>Charterer:</b> {{ charterer }}</td></tr>
-<tr><td><b>Chief Engineer:</b> {{ chief_engineer }}</td></tr>
-<tr><td><b>Master:</b> {{ master }}</td></tr>
-</table>
+{% if connected_transfer %}
+<p class="justify">
+The bunker transfer between bunker 1 and bunker 2 was connected and completed.
+</p>
+{% endif %}
 
-<br>
+<p><b>Owner:</b> {{ owner }}</p>
+<p><b>Charterer:</b> {{ charterer }}</p>
+<p><b>Chief Engineer:</b> {{ chief_engineer }}</p>
+<p><b>Master:</b> {{ master }}</p>
 
-<table class="supply-table">
-<tr>
-<th>Description</th>
-<th>Quantity (MT)</th>
-</tr>
-<tr>
-<td>BDR Quantity</td>
-<td>{{ "%.3f"|format(bdr1) }}</td>
-</tr>
-<tr>
-<td>Barge Delivered Quantity</td>
-<td>{{ "%.3f"|format(barge1) }}</td>
-</tr>
-<tr>
-<td>Quantity Received On Board</td>
-<td>{{ "%.3f"|format(received1) }}</td>
-</tr>
-<tr>
-<td>Nominated Quantity</td>
-<td>{{ "%.3f"|format(nominated1) }}</td>
-</tr>
-</table>
-
-<br>
+{% if include_bunker1 %}
+<h4>Bunker 1 Supply Details</h4>
+<p>1) BDR Quantity: {{ "%.3f"|format(bdr1) }} MT</p>
+<p>2) Barge Delivered: {{ "%.3f"|format(barge1) }} MT</p>
+<p>3) Quantity Received: {{ "%.3f"|format(received1) }} MT</p>
+<p>4) Nominated Quantity: {{ "%.3f"|format(nominated1) }} MT</p>
 
 <p>
 Difference (2-1): {{ "%.3f"|format(diff21_1) }} MT ({{ diff21_type }})<br>
 Difference (3-1): {{ "%.3f"|format(diff31_1) }} MT ({{ diff31_type }})<br>
 Difference (4-1): {{ "%.3f"|format(diff41_1) }} MT ({{ diff41_type }})
 </p>
+{% endif %}
 
-<br>
+{% if include_bunker2 %}
+<p><b>Bunker 2 section placeholder (Phase 2 build).</b></p>
+{% endif %}
 
 <p><b>Surveyor’s Comments:</b></p>
 <p class="justify">{{ comments }}</p>

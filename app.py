@@ -25,6 +25,11 @@ def generate():
     master = request.form.get('master')
     comments = request.form.get('comments')
 
+
+    include_bunker1 = request.form.get("include_bunker1")
+    include_bunker2 = request.form.get("include_bunker2")
+    connected_transfer = request.form.get("connected_transfer")
+
     # Bunker 1 Quantities
     bdr1 = float(request.form.get('bdr1') or 0)
     barge1 = float(request.form.get('barge1') or 0)
@@ -38,7 +43,12 @@ def generate():
 
     # Determine more/less
     def more_less(value):
-        return "more" if value > 0 else "less"
+    if value > 0:
+        return "more"
+    elif value < 0:
+        return "less"
+    else:
+        return ""
 
     html = render_template(
         "report_template.html",
@@ -53,6 +63,9 @@ def generate():
         chief_engineer=chief_engineer,
         master=master,
         comments=comments,
+        include_bunker1=include_bunker1,
+        include_bunker2=include_bunker2,
+        connected_transfer=connected_transfer,
         bdr1=bdr1,
         barge1=barge1,
         received1=received1,

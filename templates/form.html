@@ -2,32 +2,47 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>GRM Marine - Summary Report Generator</title>
+<title>GRM Marine Summary Report Generator</title>
 
 <style>
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
+    background: #f4f6f9;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    width: 1000px;
+    width: 1100px;
     margin: 40px auto;
     background: white;
-    padding: 30px;
+    padding: 40px;
     border-radius: 8px;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.08);
 }
 
 h1 {
     text-align: center;
     color: #1f3c88;
+    margin-bottom: 30px;
 }
 
 .section {
-    margin-top: 30px;
+    margin-top: 35px;
+}
+
+h3 {
+    border-bottom: 2px solid #1f3c88;
+    padding-bottom: 5px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.row div {
+    flex: 1;
 }
 
 label {
@@ -40,28 +55,23 @@ input, textarea {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
-    border-radius: 5px;
     border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 textarea {
     height: 80px;
 }
 
-.row {
-    display: flex;
-    gap: 20px;
-}
-
-.row div {
-    flex: 1;
+.checkbox-group {
+    margin-top: 15px;
 }
 
 button {
-    margin-top: 30px;
+    margin-top: 40px;
     width: 100%;
-    padding: 12px;
-    background-color: #1f3c88;
+    padding: 14px;
+    background: #1f3c88;
     color: white;
     border: none;
     border-radius: 6px;
@@ -70,14 +80,7 @@ button {
 }
 
 button:hover {
-    background-color: #163172;
-}
-
-.footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 13px;
-    color: gray;
+    background: #163172;
 }
 </style>
 </head>
@@ -134,7 +137,16 @@ button:hover {
 
 <label>Master</label>
 <input type="text" name="master">
+</div>
 
+<div class="section">
+<h3>Bunker Selection</h3>
+
+<div class="checkbox-group">
+<label><input type="checkbox" name="include_bunker1" value="yes"> Include Bunker 1</label>
+<label><input type="checkbox" name="include_bunker2" value="yes"> Include Bunker 2</label>
+<label><input type="checkbox" name="connected_transfer" value="yes"> Bunker 1 & 2 Transfer Connected</label>
+</div>
 </div>
 
 <div class="section">
@@ -142,24 +154,24 @@ button:hover {
 
 <div class="row">
 <div>
-<label>BDR Quantity (MT)</label>
+<label>BDR Quantity</label>
 <input type="number" step="0.001" name="bdr1">
 </div>
 
 <div>
-<label>Barge Delivered (MT)</label>
+<label>Barge Delivered</label>
 <input type="number" step="0.001" name="barge1">
 </div>
 </div>
 
 <div class="row">
 <div>
-<label>Quantity Received (MT)</label>
+<label>Quantity Received</label>
 <input type="number" step="0.001" name="received1">
 </div>
 
 <div>
-<label>Nominated Quantity (MT)</label>
+<label>Nominated Quantity</label>
 <input type="number" step="0.001" name="nominated1">
 </div>
 </div>
@@ -175,11 +187,6 @@ button:hover {
 
 </form>
 
-<div class="footer">
-GRM Marine Pte Ltd - Internal & Public Report System
 </div>
-
-</div>
-
 </body>
 </html>
