@@ -5,30 +5,63 @@
 <title>GRM Summary Report</title>
 
 <style>
-@page { size:A4; margin:20mm; }
 
-body { font-family:Arial; font-size:12pt; background:#f0f2f5; }
-
-.page-wrapper {
-    width:850px;
-    margin:40px auto;
-    border:3px solid #1f4ea3;
-    padding:30px;
-    background:white;
+body {
+    font-family: Arial;
+    font-size: 12pt;
+    line-height: 1.6;
+    background:#f0f2f5;
+    margin:0;
 }
 
-.header { display:flex; justify-content:space-between; }
+.page-wrapper {
+    width:210mm;
+    min-height:297mm;
+    margin:20mm auto;
+    border:3px solid #1f4ea3;
+    padding:25mm 20mm;
+    background:white;
+    box-sizing:border-box;
+}
+
+.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
 .logo { height:85px; }
 
 .center { text-align:center; }
-.justify { text-align:justify; }
 
+.justify {
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+/* INPUT STYLE */
 input, select {
     border:none;
     border-bottom:1px solid black;
-    font-weight:bold;
     font-size:12pt;
+    font-weight:bold;
     outline:none;
+    min-width:40px;
+    width:auto;
+}
+
+/* OWNER TABLE FORMAT */
+.details-table {
+    width:100%;
+    margin-top:10px;
+}
+
+.details-table td:first-child {
+    width:180px;
+}
+
+.details-table td {
+    padding:4px 0;
 }
 
 button {
@@ -41,6 +74,9 @@ button {
     font-size:16px;
     cursor:pointer;
 }
+
+.hidden { display:none; }
+
 </style>
 </head>
 
@@ -55,6 +91,8 @@ button {
 <img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
 </div>
 
+<br>
+
 <div class="center">
 <b>SUMMARY REPORT</b><br><br>
 <input type="text" name="job_scope" placeholder="JOB SCOPE"
@@ -65,22 +103,27 @@ oninput="this.value=this.value.toUpperCase()">"
 
 <br>
 
-Dear <input type="text" name="principal" placeholder="Principal">,
+Dear <input type="text" name="principal"
+oninput="this.value=this.value.toUpperCase()">,
 
 <br><br>
 
 <p class="justify">
 We are pleased to confirm that our surveyor
-<input type="text" name="surveyor" placeholder="Surveyor">
-has attended on board the vessel
-"<input type="text" name="vessel" placeholder="VESSEL"
-oninput="this.value=this.value.toUpperCase()">"
-at <input type="text" name="port" placeholder="Port">
-to carry out <input type="text" name="job_scope" placeholder="JOB SCOPE"
+<input type="text" name="surveyor"
 oninput="this.value=this.value.toUpperCase()">
-on <input type="text" name="survey_date" placeholder="Survey Date">.
+has attended on board the vessel
+"<input type="text" name="vessel"
+oninput="this.value=this.value.toUpperCase()">"
+at <input type="text" name="port"
+oninput="this.value=this.value.toUpperCase()">
+to carry out
+<input type="text" name="job_scope"
+oninput="this.value=this.value.toUpperCase()">
+on <input type="text" name="survey_date">.
 </p>
 
+<!-- BUNKER SUPPLY 1 -->
 Bunker Supply 1:
 <select name="bunker1_supply" onchange="toggleBunker(1)">
 <option value="">Select</option>
@@ -88,10 +131,11 @@ Bunker Supply 1:
 <option value="no">No</option>
 </select>
 
-<div id="bunker1_section" style="display:none;" class="justify">
+<div id="bunker1_section" class="hidden justify">
 <br>
 The bunker transferring of
-<input type="text" name="bunker1_name">
+<input type="text" name="bunker1_name"
+oninput="this.value=this.value.toUpperCase()">
 commenced at
 <input type="text" name="bunker1_commenced_hour">
 on
@@ -104,6 +148,7 @@ on
 
 <br>
 
+<!-- BUNKER SUPPLY 2 -->
 Bunker Supply 2:
 <select name="bunker2_supply" onchange="toggleBunker(2)">
 <option value="">Select</option>
@@ -111,10 +156,11 @@ Bunker Supply 2:
 <option value="no">No</option>
 </select>
 
-<div id="bunker2_section" style="display:none;" class="justify">
+<div id="bunker2_section" class="hidden justify">
 <br>
 The bunker transferring of
-<input type="text" name="bunker2_name">
+<input type="text" name="bunker2_name"
+oninput="this.value=this.value.toUpperCase()">
 commenced at
 <input type="text" name="bunker2_commenced_hour">
 on
@@ -127,12 +173,34 @@ on
 
 <br>
 
-<div class="center">
-Owner : <input type="text" name="owner"><br>
-Charterer : <input type="text" name="charterer"><br>
-Chief Engineer : <input type="text" name="chief_engineer"><br>
-Master : <input type="text" name="master">
-</div>
+<!-- OWNER SECTION MATCHING REPORT -->
+<table class="details-table">
+<tr>
+<td>Owner</td>
+<td>: <input type="text" name="owner"
+oninput="this.value=this.value.toUpperCase()"></td>
+</tr>
+<tr>
+<td>Charterer</td>
+<td>: <input type="text" name="charterer"
+oninput="this.value=this.value.toUpperCase()"></td>
+</tr>
+<tr>
+<td>Attending Surveyor</td>
+<td>: <input type="text" name="surveyor"
+oninput="this.value=this.value.toUpperCase()"></td>
+</tr>
+<tr>
+<td>Chief Engineer</td>
+<td>: <input type="text" name="chief_engineer"
+oninput="this.value=this.value.toUpperCase()"></td>
+</tr>
+<tr>
+<td>Master</td>
+<td>: <input type="text" name="master"
+oninput="this.value=this.value.toUpperCase()"></td>
+</tr>
+</table>
 
 <button type="submit">Generate PDF</button>
 
@@ -145,9 +213,9 @@ function toggleBunker(num){
 let select=document.querySelector('[name="bunker'+num+'_supply"]');
 let section=document.getElementById('bunker'+num+'_section');
 if(select.value==="yes"){
-section.style.display="block";
+section.classList.remove("hidden");
 }else{
-section.style.display="none";
+section.classList.add("hidden");
 }
 }
 </script>

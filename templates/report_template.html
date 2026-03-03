@@ -4,68 +4,79 @@
 <meta charset="utf-8">
 
 <style>
-@page {
-    size: A4;
-    margin: 20mm;
-}
+
+@page { size:A4; margin:0; }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     font-size: 12pt;
     line-height: 1.6;
+    margin:0;
 }
 
 .page-wrapper {
-    border: 3px solid #1f4ea3;   /* FIXED BLUE BORDER */
-    padding: 30px;
+    margin: 20mm;
+    border: 3px solid #1f4ea3;
+    padding: 25mm 20mm;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.logo {
-    height: 85px;
-}
+.logo { height:85px; }
 
-.center {
-    text-align: center;
-}
+.center { text-align:center; }
 
 .justify {
-    text-align: justify;
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.details-table {
+    width:100%;
+    margin-top:10px;
+}
+
+.details-table td:first-child {
+    width:180px;
+}
+
+.details-table td {
+    padding:4px 0;
 }
 
 .footer {
-    position: fixed;
-    bottom: 10mm;
-    left: 20mm;
-    right: 20mm;
-    text-align: center;
-    font-size: 10pt;
-    border-top: 1px solid #1f4ea3;
-    padding-top: 5px;
+    position:fixed;
+    bottom:15mm;
+    left:20mm;
+    right:20mm;
+    text-align:center;
+    font-size:10pt;
+    border-top:1px solid #1f4ea3;
+    padding-top:5px;
 }
-</style>
 
+</style>
 </head>
+
 <body>
 
 <div class="page-wrapper">
 
-<!-- HEADER WITH LOGOS -->
 <div class="header">
-    <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
-    <img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
+<img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
+<img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
 </div>
 
-<!-- TITLE -->
+<br>
+
 <div class="center">
-    <b>SUMMARY REPORT</b><br><br>
-    <b>{{ job_scope }}</b><br>
-    MV. "<b>{{ vessel }}</b>"
+<b>SUMMARY REPORT</b><br><br>
+<b>{{ job_scope }}</b><br>
+MV. "<b>{{ vessel }}</b>"
 </div>
 
 <br>
@@ -79,38 +90,18 @@ We are pleased to confirm that our surveyor <b>{{ surveyor }}</b>
 has attended on board the vessel "<b>{{ vessel }}</b>"
 at <b>{{ port }}</b>
 to carry out <b>{{ job_scope }}</b>
-on <b>{{ survey_date }}</b>.
+on <b>{{ survey_date }}</b>.{% if bunker1_supply == "yes" %} The bunker transferring of <b>{{ bunker1_name }}</b> commenced at <b>{{ bunker1_commenced_hour }}</b> on <b>{{ bunker1_commenced_date }}</b> and completed at <b>{{ bunker1_completed_hour }}</b> on <b>{{ bunker1_completed_date }}</b>.{% endif %}{% if bunker2_supply == "yes" %} The bunker transferring of <b>{{ bunker2_name }}</b> commenced at <b>{{ bunker2_commenced_hour }}</b> on <b>{{ bunker2_commenced_date }}</b> and completed at <b>{{ bunker2_completed_hour }}</b> on <b>{{ bunker2_completed_date }}</b>.{% endif %}
 </p>
-
-{% if bunker1_supply == "yes" %}
-<p class="justify">
-The bunker transferring of <b>{{ bunker1_name }}</b>
-commenced at <b>{{ bunker1_commenced_hour }}</b>
-on <b>{{ bunker1_commenced_date }}</b>
-and completed at <b>{{ bunker1_completed_hour }}</b>
-on <b>{{ bunker1_completed_date }}</b>.
-</p>
-{% endif %}
-
-{% if bunker2_supply == "yes" %}
-<p class="justify">
-The bunker transferring of <b>{{ bunker2_name }}</b>
-commenced at <b>{{ bunker2_commenced_hour }}</b>
-on <b>{{ bunker2_commenced_date }}</b>
-and completed at <b>{{ bunker2_completed_hour }}</b>
-on <b>{{ bunker2_completed_date }}</b>.
-</p>
-{% endif %}
 
 <br>
 
-<!-- CENTERED OWNER SECTION -->
-<div class="center">
-Owner : <b>{{ owner }}</b><br>
-Charterer : <b>{{ charterer }}</b><br>
-Chief Engineer : <b>{{ chief_engineer }}</b><br>
-Master : <b>{{ master }}</b>
-</div>
+<table class="details-table">
+<tr><td>Owner</td><td>: <b>{{ owner }}</b></td></tr>
+<tr><td>Charterer</td><td>: <b>{{ charterer }}</b></td></tr>
+<tr><td>Attending Surveyor</td><td>: <b>{{ surveyor }}</b></td></tr>
+<tr><td>Chief Engineer</td><td>: <b>{{ chief_engineer }}</b></td></tr>
+<tr><td>Master</td><td>: <b>{{ master }}</b></td></tr>
+</table>
 
 <br><br>
 
@@ -118,7 +109,6 @@ Date of Issue : <b>{{ issue_date }}</b>
 
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
 GRM MARINE PTE LTD<br>
 2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
