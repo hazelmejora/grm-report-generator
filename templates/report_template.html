@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.page {
+    border: 3px solid #1f3c88;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+}
+
+.title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="header">
+    <img src="static/grm_logo.png" class="logo">
+    <img src="static/sac_logo.png" class="logo">
+</div>
+
+<div class="title">
+    <h2>SUMMARY REPORT</h2>
+    <b>{{ job_scope }}</b><br>
+    MV. "{{ vessel }}"
+</div>
+
+<p>Dear {{ principal }},</p>
+
+<p>
+We are pleased to confirm that our surveyor, <b>{{ surveyor }}</b> has attended
+on board the vessel "{{ vessel }}" at {{ port }} to carry out
+{{ job_scope }} on {{ date }}.
+</p>
+
+<table>
+<tr><td>Owner</td><td>{{ owner }}</td></tr>
+<tr><td>Charterer</td><td>{{ charterer }}</td></tr>
+<tr><td>Chief Engineer</td><td>{{ chief_engineer }}</td></tr>
+<tr><td>Master</td><td>{{ master }}</td></tr>
+</table>
+
+<div class="section-title">Supply Details</div>
+
+<table>
+<tr>
+<th>Description</th>
+<th>Quantity</th>
+</tr>
+<tr><td>BDR Quantity</td><td>{{ bdr1 }} MT</td></tr>
+<tr><td>Barge Delivered</td><td>{{ barge1 }} MT</td></tr>
+<tr><td>Received</td><td>{{ received1 }} MT</td></tr>
+<tr><td>Nominated</td><td>{{ nominated1 }} MT</td></tr>
+</table>
+
+<p>
+Difference (2-1): {{ diff21_1 }} MT ({{ diff21_type }})<br>
+Difference (3-1): {{ diff31_1 }} MT ({{ diff31_type }})<br>
+Difference (4-1): {{ diff41_1 }} MT ({{ diff41_type }})
+</p>
+
+<div class="section-title">Surveyor’s Comments</div>
+<p>{{ comments }}</p>
+
+<p><b>Date of Issue:</b> {{ issue_date }}</p>
+
+<div class="footer">
+GRM MARINE PTE LTD<br>
+2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
+24 Hrs Emergency Contact : +65 96576310 | ops@grm.sg | www.grm.sg
+</div>
+
+</div>
+
+</body>
+</html>
