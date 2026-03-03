@@ -11,9 +11,12 @@ def form():
 @app.route('/generate', methods=['POST'])
 def generate():
 
+    job_scope = request.form.get("job_scope", "").upper()
+    vessel = request.form.get("vessel", "").upper()
+
     data = {
-        "job_scope": request.form.get("job_scope", ""),
-        "vessel": request.form.get("vessel", ""),
+        "job_scope": job_scope,
+        "vessel": vessel,
         "principal": request.form.get("principal", ""),
         "surveyor": request.form.get("surveyor", ""),
         "port": request.form.get("port", ""),
@@ -39,7 +42,7 @@ def generate():
 
     html = render_template("report_template.html", **data)
 
-    pdf_file = f"Summary_Report_{data['vessel']}.pdf"
+    pdf_file = f"Summary_Report_{vessel}.pdf"
 
     HTML(string=html, base_url=request.host_url).write_pdf(pdf_file)
 

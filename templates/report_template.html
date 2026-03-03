@@ -4,10 +4,9 @@
 <meta charset="utf-8">
 
 <style>
-
 @page {
     size: A4;
-    margin: 20mm 20mm 25mm 20mm;
+    margin: 20mm;
 }
 
 body {
@@ -17,9 +16,8 @@ body {
 }
 
 .page-wrapper {
-    border: 3px solid #1f4ea3;
+    border: 3px solid #1f4ea3;   /* FIXED BLUE BORDER */
     padding: 30px;
-    min-height: 90vh;
 }
 
 .header {
@@ -40,16 +38,6 @@ body {
     text-align: justify;
 }
 
-.title {
-    font-weight: bold;
-    font-size: 15pt;
-    margin-top: 10px;
-}
-
-.subtitle {
-    margin-top: 5px;
-}
-
 .footer {
     position: fixed;
     bottom: 10mm;
@@ -60,15 +48,14 @@ body {
     border-top: 1px solid #1f4ea3;
     padding-top: 5px;
 }
-
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="page-wrapper">
 
-<!-- HEADER -->
+<!-- HEADER WITH LOGOS -->
 <div class="header">
     <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
     <img src="{{ url_for('static', filename='sac_logo.png') }}" class="logo">
@@ -76,11 +63,9 @@ body {
 
 <!-- TITLE -->
 <div class="center">
-    <div class="title">SUMMARY REPORT</div>
-    <div class="subtitle">
-        <b>{{ job_scope }}</b><br>
-        MV. "<b>{{ vessel }}</b>"
-    </div>
+    <b>SUMMARY REPORT</b><br><br>
+    <b>{{ job_scope }}</b><br>
+    MV. "<b>{{ vessel }}</b>"
 </div>
 
 <br>
@@ -119,6 +104,7 @@ on <b>{{ bunker2_completed_date }}</b>.
 
 <br>
 
+<!-- CENTERED OWNER SECTION -->
 <div class="center">
 Owner : <b>{{ owner }}</b><br>
 Charterer : <b>{{ charterer }}</b><br>
@@ -132,6 +118,7 @@ Date of Issue : <b>{{ issue_date }}</b>
 
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
 GRM MARINE PTE LTD<br>
 2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
