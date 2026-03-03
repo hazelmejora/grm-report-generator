@@ -2,19 +2,45 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>GRM Marine Summary Report Generator</title>
+<title>GRM Summary Report</title>
 
 <style>
 body { font-family: Arial; background:#f4f6f9; margin:0; padding:0; }
-.container { width:1000px; margin:40px auto; background:white; padding:40px; border-radius:8px; }
-h1 { text-align:center; color:#1f3c88; }
-.section { margin-top:30px; }
-.row { display:flex; gap:20px; }
-.row div { flex:1; }
-label { display:block; margin-top:15px; font-weight:bold; }
-input, textarea { width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; }
-textarea { height:80px; }
-button { margin-top:30px; width:100%; padding:12px; background:#1f3c88; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer; }
+
+.container {
+    width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 50px;
+    border: 3px solid #1f3c88;
+}
+
+.center { text-align: center; }
+
+h2 { margin-bottom: 5px; }
+
+input, select {
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    padding: 4px;
+    outline: none;
+}
+
+.inline { width: 180px; }
+.wide { width: 400px; }
+
+button {
+    margin-top: 40px;
+    width: 100%;
+    padding: 14px;
+    background: #1f3c88;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 button:hover { background:#163172; }
 </style>
 </head>
@@ -22,93 +48,96 @@ button:hover { background:#163172; }
 <body>
 <div class="container">
 
-<h1>GRM Marine Summary Report Generator</h1>
-
 <form action="/generate" method="post">
 
-<div class="section">
-<h3>General Information</h3>
+<div class="center">
+<h2>SUMMARY REPORT</h2>
 
-<div class="row">
-<div>
-<label>Principal</label>
-<input type="text" name="principal" required>
-</div>
-<div>
-<label>Vessel</label>
-<input type="text" name="vessel" required>
-</div>
+<input type="text" name="job_scope" class="wide center"
+placeholder="Job Scope"><br><br>
+
+MV. "<input type="text" name="vessel" class="inline"
+placeholder="Vessel">"
 </div>
 
-<div class="row">
-<div>
-<label>Port</label>
-<input type="text" name="port" required>
-</div>
-<div>
-<label>Date</label>
-<input type="text" name="date" required>
-</div>
-</div>
+<br>
 
-<label>Job Scope</label>
-<input type="text" name="job_scope" required>
+Dear <input type="text" name="principal" class="inline"
+placeholder="Principal">,
 
-<label>Surveyor</label>
-<input type="text" name="surveyor" required>
+<br><br>
 
-<label>Owner</label>
-<input type="text" name="owner">
+We are pleased to confirm that our surveyor
+<input type="text" name="surveyor" class="inline"
+placeholder="Surveyor">
+has attended on board the vessel
+"<input type="text" name="vessel" class="inline"
+placeholder="Vessel">"
+at
+<input type="text" name="port" class="inline"
+placeholder="Port">
+to carry out
+<input type="text" name="job_scope" class="inline"
+placeholder="Job Scope">
+on
+<input type="text" name="survey_date" class="inline"
+placeholder="Survey Date">.
 
-<label>Charterer</label>
-<input type="text" name="charterer">
+<br><br>
 
-<label>Chief Engineer</label>
-<input type="text" name="chief_engineer">
+<b>Bunker Supply 1:</b>
+<select name="bunker1_supply">
+<option value="no">No</option>
+<option value="yes">Yes</option>
+</select>
 
-<label>Master</label>
-<input type="text" name="master">
-</div>
+<br><br>
 
-<div class="section">
-<h3>Bunker Selection</h3>
+Bunker
+<input type="text" name="bunker1_name" class="inline">
+Commenced at
+<input type="text" name="bunker1_commenced_hour" class="inline">
+on
+<input type="text" name="bunker1_commenced_date" class="inline">
+Completed at
+<input type="text" name="bunker1_completed_hour" class="inline">
+on
+<input type="text" name="bunker1_completed_date" class="inline">
 
-<label><input type="checkbox" name="include_bunker1"> Include Bunker 1</label>
-<label><input type="checkbox" name="include_bunker2"> Include Bunker 2</label>
-<label><input type="checkbox" name="connected_transfer"> Bunker 1 & 2 Transfer Connected</label>
-</div>
+<br><br>
 
-<div class="section">
-<h3>Bunker 1 Supply</h3>
+<b>Bunker Supply 2:</b>
+<select name="bunker2_supply">
+<option value="no">No</option>
+<option value="yes">Yes</option>
+</select>
 
-<div class="row">
-<div>
-<label>BDR Quantity</label>
-<input type="number" step="0.001" name="bdr1">
-</div>
-<div>
-<label>Barge Delivered</label>
-<input type="number" step="0.001" name="barge1">
-</div>
-</div>
+<br><br>
 
-<div class="row">
-<div>
-<label>Received Quantity</label>
-<input type="number" step="0.001" name="received1">
-</div>
-<div>
-<label>Nominated Quantity</label>
-<input type="number" step="0.001" name="nominated1">
-</div>
-</div>
+Bunker
+<input type="text" name="bunker2_name" class="inline">
+Commenced at
+<input type="text" name="bunker2_commenced_hour" class="inline">
+on
+<input type="text" name="bunker2_commenced_date" class="inline">
+Completed at
+<input type="text" name="bunker2_completed_hour" class="inline">
+on
+<input type="text" name="bunker2_completed_date" class="inline">
 
-</div>
+<br><br>
 
-<div class="section">
-<h3>Surveyor Comments</h3>
-<textarea name="comments"></textarea>
-</div>
+Owner:
+<input type="text" name="owner" class="wide"><br><br>
+
+Charterer:
+<input type="text" name="charterer" class="wide"><br><br>
+
+Chief Engineer:
+<input type="text" name="chief_engineer" class="wide"><br><br>
+
+Master:
+<input type="text" name="master" class="wide">
 
 <button type="submit">Generate PDF</button>
 

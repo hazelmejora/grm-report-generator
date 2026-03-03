@@ -2,101 +2,147 @@
 <html>
 <head>
 <meta charset="utf-8">
+<title>GRM Summary Report</title>
+
 <style>
+body { font-family: Arial; background:#f4f6f9; margin:0; padding:0; }
 
-@page { size:A4; margin:25mm 20mm 25mm 20mm; }
-
-body { font-family:Arial; font-size:12pt; line-height:1.15; }
-
-.page { border:3px solid #1f3c88; padding:25px; }
-
-.header { display:flex; justify-content:space-between; }
-.logo { height:70px; }
-
-.title { text-align:center; font-weight:bold; margin-top:20px; }
-.subtitle { text-align:center; margin-bottom:20px; }
-.justify { text-align:justify; }
-
-.footer {
-position:fixed;
-bottom:15mm;
-left:20mm;
-right:20mm;
-text-align:center;
-font-size:10pt;
-border-top:1px solid black;
-padding-top:5px;
+.container {
+    width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 50px;
+    border: 3px solid #1f3c88;
 }
 
+.center { text-align: center; }
+
+h2 { margin-bottom: 5px; }
+
+input, select {
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    padding: 4px;
+    outline: none;
+}
+
+.inline { width: 180px; }
+.wide { width: 400px; }
+
+button {
+    margin-top: 40px;
+    width: 100%;
+    padding: 14px;
+    background: #1f3c88;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover { background:#163172; }
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<div class="page">
+<form action="/generate" method="post">
 
-<div class="header">
-<img src="static/grm_logo.png" class="logo">
-<img src="static/sac_logo.png" class="logo">
+<div class="center">
+<h2>SUMMARY REPORT</h2>
+
+<input type="text" name="job_scope" class="wide center"
+placeholder="Job Scope"><br><br>
+
+MV. "<input type="text" name="vessel" class="inline"
+placeholder="Vessel">"
 </div>
 
-<div class="title">SUMMARY REPORT</div>
+<br>
 
-<div class="subtitle">
-<b>{{ job_scope }}</b><br>
-MV. "{{ vessel }}"
+Dear <input type="text" name="principal" class="inline"
+placeholder="Principal">,
+
+<br><br>
+
+We are pleased to confirm that our surveyor
+<input type="text" name="surveyor" class="inline"
+placeholder="Surveyor">
+has attended on board the vessel
+"<input type="text" name="vessel" class="inline"
+placeholder="Vessel">"
+at
+<input type="text" name="port" class="inline"
+placeholder="Port">
+to carry out
+<input type="text" name="job_scope" class="inline"
+placeholder="Job Scope">
+on
+<input type="text" name="survey_date" class="inline"
+placeholder="Survey Date">.
+
+<br><br>
+
+<b>Bunker Supply 1:</b>
+<select name="bunker1_supply">
+<option value="no">No</option>
+<option value="yes">Yes</option>
+</select>
+
+<br><br>
+
+Bunker
+<input type="text" name="bunker1_name" class="inline">
+Commenced at
+<input type="text" name="bunker1_commenced_hour" class="inline">
+on
+<input type="text" name="bunker1_commenced_date" class="inline">
+Completed at
+<input type="text" name="bunker1_completed_hour" class="inline">
+on
+<input type="text" name="bunker1_completed_date" class="inline">
+
+<br><br>
+
+<b>Bunker Supply 2:</b>
+<select name="bunker2_supply">
+<option value="no">No</option>
+<option value="yes">Yes</option>
+</select>
+
+<br><br>
+
+Bunker
+<input type="text" name="bunker2_name" class="inline">
+Commenced at
+<input type="text" name="bunker2_commenced_hour" class="inline">
+on
+<input type="text" name="bunker2_commenced_date" class="inline">
+Completed at
+<input type="text" name="bunker2_completed_hour" class="inline">
+on
+<input type="text" name="bunker2_completed_date" class="inline">
+
+<br><br>
+
+Owner:
+<input type="text" name="owner" class="wide"><br><br>
+
+Charterer:
+<input type="text" name="charterer" class="wide"><br><br>
+
+Chief Engineer:
+<input type="text" name="chief_engineer" class="wide"><br><br>
+
+Master:
+<input type="text" name="master" class="wide">
+
+<button type="submit">Generate PDF</button>
+
+</form>
+
 </div>
-
-<p>Dear {{ principal }},</p>
-
-<p class="justify">
-We are pleased to confirm that our surveyor <b>{{ surveyor }}</b>
-attended on board the vessel "{{ vessel }}" at {{ port }}
-on {{ date }} to carry out {{ job_scope }}.
-</p>
-
-{% if connected_transfer %}
-<p class="justify">
-The bunker transfer between bunker 1 and bunker 2 was connected and completed.
-</p>
-{% endif %}
-
-<p><b>Owner:</b> {{ owner }}</p>
-<p><b>Charterer:</b> {{ charterer }}</p>
-<p><b>Chief Engineer:</b> {{ chief_engineer }}</p>
-<p><b>Master:</b> {{ master }}</p>
-
-{% if include_bunker1 %}
-<h4>Bunker 1 Supply Details</h4>
-
-<p>1) BDR Quantity: {{ "%.3f"|format(bdr1) }} MT</p>
-<p>2) Barge Delivered: {{ "%.3f"|format(barge1) }} MT</p>
-<p>3) Quantity Received: {{ "%.3f"|format(received1) }} MT</p>
-<p>4) Nominated Quantity: {{ "%.3f"|format(nominated1) }} MT</p>
-
-<p>
-Difference (2-1): {{ "%.3f"|format(diff21_1) }} MT ({{ diff21_type }})<br>
-Difference (3-1): {{ "%.3f"|format(diff31_1) }} MT ({{ diff31_type }})<br>
-Difference (4-1): {{ "%.3f"|format(diff41_1) }} MT ({{ diff41_type }})
-</p>
-{% endif %}
-
-{% if include_bunker2 %}
-<p><b>Bunker 2 section placeholder.</b></p>
-{% endif %}
-
-<p><b>Surveyor Comments:</b></p>
-<p class="justify">{{ comments }}</p>
-
-<p><b>Date of Issue:</b> {{ issue_date }}</p>
-
-</div>
-
-<div class="footer">
-GRM MARINE PTE LTD<br>
-2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
-24 Hrs Emergency Contact : +65 96576310 | ops@grm.sg | www.grm.sg
-</div>
-
 </body>
 </html>
