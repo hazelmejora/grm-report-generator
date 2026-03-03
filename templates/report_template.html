@@ -2,64 +2,38 @@
 <html>
 <head>
 <meta charset="utf-8">
-
 <style>
-@page {
-    size: A4;
-    margin: 25mm 20mm 25mm 20mm;
-}
 
-body {
-    font-family: Arial, sans-serif;
-    font-size: 12pt;
-    line-height: 1.15;
-}
+@page { size:A4; margin:25mm 20mm 25mm 20mm; }
 
-.page-border {
-    border: 3px solid #1f3c88;
-    padding: 25px;
-}
+body { font-family:Arial; font-size:12pt; line-height:1.15; }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-}
+.page { border:3px solid #1f3c88; padding:25px; }
 
-.logo {
-    height: 75px;
-}
+.header { display:flex; justify-content:space-between; }
+.logo { height:70px; }
 
-.title {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.subtitle {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.justify {
-    text-align: justify;
-}
+.title { text-align:center; font-weight:bold; margin-top:20px; }
+.subtitle { text-align:center; margin-bottom:20px; }
+.justify { text-align:justify; }
 
 .footer {
-    position: fixed;
-    bottom: 15mm;
-    left: 20mm;
-    right: 20mm;
-    text-align: center;
-    font-size: 10pt;
-    border-top: 1px solid black;
-    padding-top: 5px;
+position:fixed;
+bottom:15mm;
+left:20mm;
+right:20mm;
+text-align:center;
+font-size:10pt;
+border-top:1px solid black;
+padding-top:5px;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="page-border">
+<div class="page">
 
 <div class="header">
 <img src="static/grm_logo.png" class="logo">
@@ -76,9 +50,9 @@ MV. "{{ vessel }}"
 <p>Dear {{ principal }},</p>
 
 <p class="justify">
-We are pleased to confirm that our surveyor, <b>{{ surveyor }}</b> has attended
-on board the vessel "{{ vessel }}" at {{ port }} on {{ date }}
-to carry out {{ job_scope }}.
+We are pleased to confirm that our surveyor <b>{{ surveyor }}</b>
+attended on board the vessel "{{ vessel }}" at {{ port }}
+on {{ date }} to carry out {{ job_scope }}.
 </p>
 
 {% if connected_transfer %}
@@ -94,6 +68,7 @@ The bunker transfer between bunker 1 and bunker 2 was connected and completed.
 
 {% if include_bunker1 %}
 <h4>Bunker 1 Supply Details</h4>
+
 <p>1) BDR Quantity: {{ "%.3f"|format(bdr1) }} MT</p>
 <p>2) Barge Delivered: {{ "%.3f"|format(barge1) }} MT</p>
 <p>3) Quantity Received: {{ "%.3f"|format(received1) }} MT</p>
@@ -107,10 +82,10 @@ Difference (4-1): {{ "%.3f"|format(diff41_1) }} MT ({{ diff41_type }})
 {% endif %}
 
 {% if include_bunker2 %}
-<p><b>Bunker 2 section placeholder (Phase 2 build).</b></p>
+<p><b>Bunker 2 section placeholder.</b></p>
 {% endif %}
 
-<p><b>Surveyor’s Comments:</b></p>
+<p><b>Surveyor Comments:</b></p>
 <p class="justify">{{ comments }}</p>
 
 <p><b>Date of Issue:</b> {{ issue_date }}</p>

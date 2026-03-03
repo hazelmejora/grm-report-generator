@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from weasyprint import HTML
-import os
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -9,46 +9,46 @@ app = Flask(__name__)
 def form():
     return render_template('form.html')
 
+
 @app.route('/generate', methods=['POST'])
 def generate():
 
     # General Info
-    vessel = request.form.get('vessel')
-    principal = request.form.get('principal')
-    port = request.form.get('port')
-    job_scope = request.form.get('job_scope')
-    surveyor = request.form.get('surveyor')
-    date = request.form.get('date')
-    owner = request.form.get('owner')
-    charterer = request.form.get('charterer')
-    chief_engineer = request.form.get('chief_engineer')
-    master = request.form.get('master')
-    comments = request.form.get('comments')
+    vessel = request.form.get('vessel', '')
+    principal = request.form.get('principal', '')
+    port = request.form.get('port', '')
+    job_scope = request.form.get('job_scope', '')
+    surveyor = request.form.get('surveyor', '')
+    date = request.form.get('date', '')
+    owner = request.form.get('owner', '')
+    charterer = request.form.get('charterer', '')
+    chief_engineer = request.form.get('chief_engineer', '')
+    master = request.form.get('master', '')
+    comments = request.form.get('comments', '')
 
+    # Checkbox values
+    include_bunker1 = True if request.form.get("include_bunker1") else False
+    include_bunker2 = True if request.form.get("include_bunker2") else False
+    connected_transfer = True if request.form.get("connected_transfer") else False
 
-    include_bunker1 = request.form.get("include_bunker1")
-    include_bunker2 = request.form.get("include_bunker2")
-    connected_transfer = request.form.get("connected_transfer")
-
-    # Bunker 1 Quantities
+    # Bunker 1 values
     bdr1 = float(request.form.get('bdr1') or 0)
     barge1 = float(request.form.get('barge1') or 0)
     received1 = float(request.form.get('received1') or 0)
     nominated1 = float(request.form.get('nominated1') or 0)
 
-    # Auto differences
+    # Differences
     diff21_1 = round(barge1 - bdr1, 3)
     diff31_1 = round(received1 - bdr1, 3)
     diff41_1 = round(nominated1 - bdr1, 3)
 
-    # Determine more/less
     def more_less(value):
-    if value > 0:
-        return "more"
-    elif value < 0:
-        return "less"
-    else:
-        return ""
+        if value > 0:
+            return "more"
+        elif value < 0:
+            return "less"
+        else:
+            return "no difference"
 
     html = render_template(
         "report_template.html",
@@ -79,10 +79,11 @@ def generate():
         issue_date=datetime.today().strftime('%d/%m/%Y')
     )
 
-    pdf_path = f"Summary_Report_{vessel}.pdf"
-    HTML(string=html, base_url=request.host_url).write_pdf(pdf_path)
+    pdf_file = f"Summary_Report_{vessel}.pdf"
+    HTML(string=html, base_url=request.host_url).write_pdf(pdf_file)
 
-    return send_file(pdf_path, as_attachment=True)
+    return send_file(pdf_file, as_attachment=True)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

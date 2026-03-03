@@ -5,88 +5,21 @@
 <title>GRM Marine Summary Report Generator</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 1100px;
-    margin: 40px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.08);
-}
-
-h1 {
-    text-align: center;
-    color: #1f3c88;
-    margin-bottom: 30px;
-}
-
-.section {
-    margin-top: 35px;
-}
-
-h3 {
-    border-bottom: 2px solid #1f3c88;
-    padding-bottom: 5px;
-}
-
-.row {
-    display: flex;
-    gap: 20px;
-}
-
-.row div {
-    flex: 1;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-textarea {
-    height: 80px;
-}
-
-.checkbox-group {
-    margin-top: 15px;
-}
-
-button {
-    margin-top: 40px;
-    width: 100%;
-    padding: 14px;
-    background: #1f3c88;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #163172;
-}
+body { font-family: Arial; background:#f4f6f9; margin:0; padding:0; }
+.container { width:1000px; margin:40px auto; background:white; padding:40px; border-radius:8px; }
+h1 { text-align:center; color:#1f3c88; }
+.section { margin-top:30px; }
+.row { display:flex; gap:20px; }
+.row div { flex:1; }
+label { display:block; margin-top:15px; font-weight:bold; }
+input, textarea { width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px; }
+textarea { height:80px; }
+button { margin-top:30px; width:100%; padding:12px; background:#1f3c88; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer; }
+button:hover { background:#163172; }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <h1>GRM Marine Summary Report Generator</h1>
@@ -101,9 +34,8 @@ button:hover {
 <label>Principal</label>
 <input type="text" name="principal" required>
 </div>
-
 <div>
-<label>Vessel Name</label>
+<label>Vessel</label>
 <input type="text" name="vessel" required>
 </div>
 </div>
@@ -113,7 +45,6 @@ button:hover {
 <label>Port</label>
 <input type="text" name="port" required>
 </div>
-
 <div>
 <label>Date</label>
 <input type="text" name="date" required>
@@ -142,22 +73,19 @@ button:hover {
 <div class="section">
 <h3>Bunker Selection</h3>
 
-<div class="checkbox-group">
-<label><input type="checkbox" name="include_bunker1" value="yes"> Include Bunker 1</label>
-<label><input type="checkbox" name="include_bunker2" value="yes"> Include Bunker 2</label>
-<label><input type="checkbox" name="connected_transfer" value="yes"> Bunker 1 & 2 Transfer Connected</label>
-</div>
+<label><input type="checkbox" name="include_bunker1"> Include Bunker 1</label>
+<label><input type="checkbox" name="include_bunker2"> Include Bunker 2</label>
+<label><input type="checkbox" name="connected_transfer"> Bunker 1 & 2 Transfer Connected</label>
 </div>
 
 <div class="section">
-<h3>Bunker 1 Supply Details</h3>
+<h3>Bunker 1 Supply</h3>
 
 <div class="row">
 <div>
 <label>BDR Quantity</label>
 <input type="number" step="0.001" name="bdr1">
 </div>
-
 <div>
 <label>Barge Delivered</label>
 <input type="number" step="0.001" name="barge1">
@@ -166,10 +94,9 @@ button:hover {
 
 <div class="row">
 <div>
-<label>Quantity Received</label>
+<label>Received Quantity</label>
 <input type="number" step="0.001" name="received1">
 </div>
-
 <div>
 <label>Nominated Quantity</label>
 <input type="number" step="0.001" name="nominated1">
@@ -183,7 +110,7 @@ button:hover {
 <textarea name="comments"></textarea>
 </div>
 
-<button type="submit">Generate Summary Report PDF</button>
+<button type="submit">Generate PDF</button>
 
 </form>
 
