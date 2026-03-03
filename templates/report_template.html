@@ -5,19 +5,22 @@
 
 <style>
 
-@page { size:A4; margin:0; }
-
 body {
     font-family: Arial;
     font-size: 12pt;
     line-height: 1.6;
+    background:#f0f2f5;
     margin:0;
 }
 
 .page-wrapper {
-    margin: 20mm;
-    border: 3px solid #1f4ea3;
-    padding: 25mm 20mm;
+    width:210mm;
+    min-height:297mm;
+    margin:20mm auto;
+    border:3px solid #1f4ea3;
+    padding:25mm 20mm;
+    background:white;
+    box-sizing:border-box;
 }
 
 .header {
@@ -35,6 +38,18 @@ body {
     text-justify:inter-word;
 }
 
+/* INPUT STYLE */
+input, select {
+    border:none;
+    border-bottom:1px solid black;
+    font-size:12pt;
+    font-weight:bold;
+    outline:none;
+    min-width:40px;
+    width:auto;
+}
+
+/* OWNER TABLE FORMAT */
 .details-table {
     width:100%;
     margin-top:10px;
@@ -48,16 +63,18 @@ body {
     padding:4px 0;
 }
 
-.footer {
-    position:fixed;
-    bottom:15mm;
-    left:20mm;
-    right:20mm;
-    text-align:center;
-    font-size:10pt;
-    border-top:1px solid #1f4ea3;
-    padding-top:5px;
+button {
+    margin-top:30px;
+    width:100%;
+    padding:14px;
+    background:#1f4ea3;
+    color:white;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
 }
+
+.hidden { display:none; }
 
 </style>
 </head>
@@ -65,6 +82,8 @@ body {
 <body>
 
 <div class="page-wrapper">
+
+<form action="/generate" method="post">
 
 <div class="header">
 <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
