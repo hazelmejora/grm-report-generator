@@ -5,85 +5,99 @@
 
 <style>
 
-body {
+@page {
+    size: A4;
+    margin: 25mm 20mm 25mm 20mm;
+}
+
+body{
     font-family: Arial;
-    font-size: 12pt;
-    line-height: 1.6;
-    background:#f0f2f5;
+    font-size:12pt;
+    line-height:1.6;
     margin:0;
 }
 
-.page-wrapper {
-    width:210mm;
-    min-height:297mm;
-    margin:20mm auto;
-    border:3px solid #1f4ea3;
-    padding:25mm 20mm;
-    background:white;
+/* PAGE FRAME */
+
+.page{
+    border:2px solid #1f4ea3;
+    padding:25mm 18mm 20mm 18mm;
     box-sizing:border-box;
+    min-height:247mm;
 }
 
-.header {
+/* HEADER */
+
+.header{
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
-.logo { height:85px; }
+.logo{
+    height:85px;
+}
 
-.center { text-align:center; }
+/* TEXT */
 
-.justify {
+.center{
+    text-align:center;
+}
+
+.justify{
     text-align:justify;
-    text-justify:inter-word;
 }
 
-/* INPUT STYLE */
-input, select {
-    border:none;
-    border-bottom:1px solid black;
-    font-size:12pt;
+/* OWNER SECTION */
+
+.details{
+    margin-top:20px;
+}
+
+.details-row{
+    display:flex;
+    margin:4px 0;
+}
+
+.label{
+    width:190px;
+}
+
+.value{
     font-weight:bold;
-    outline:none;
-    min-width:40px;
-    width:auto;
+    text-transform:uppercase;
 }
 
-/* OWNER TABLE FORMAT */
-.details-table {
-    width:100%;
-    margin-top:10px;
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:40px;
+    line-height:1.0;
+    font-size:10pt;
 }
 
-.details-table td:first-child {
-    width:180px;
+.footer .company{
+    color:#00a0e3;
+    font-weight:bold;
 }
 
-.details-table td {
-    padding:4px 0;
+.footer .address{
+    font-style:italic;
 }
 
-button {
-    margin-top:30px;
-    width:100%;
-    padding:14px;
-    background:#1f4ea3;
-    color:white;
-    border:none;
-    font-size:16px;
-    cursor:pointer;
+.footer .contact{
+    color:red;
 }
-
-.hidden { display:none; }
 
 </style>
 </head>
 
 <body>
 
-<div class="page-wrapper">
+<div class="page">
 
-<form action="/generate" method="post">
+<!-- HEADER -->
 
 <div class="header">
 <img src="{{ url_for('static', filename='grm_logo.png') }}" class="logo">
@@ -92,17 +106,27 @@ button {
 
 <br>
 
+<!-- TITLE -->
+
 <div class="center">
-<b>SUMMARY REPORT</b><br><br>
-<b>{{ job_scope }}</b><br>
+
+<b>SUMMARY REPORT</b>
+<br><br>
+
+<b>{{ job_scope }}</b>
+<br>
+
 MV. "<b>{{ vessel }}</b>"
+
 </div>
 
-<br>
+<br><br>
 
 Dear <b>{{ principal }}</b>,
 
 <br><br>
+
+<!-- PARAGRAPH (UNCHANGED) -->
 
 <p class="justify">
 We are pleased to confirm that our surveyor <b>{{ surveyor }}</b>
@@ -114,24 +138,59 @@ on <b>{{ survey_date }}</b>.{% if bunker1_supply == "yes" %} The bunker transfer
 
 <br>
 
-<table class="details-table">
-<tr><td>Owner</td><td>: <b>{{ owner }}</b></td></tr>
-<tr><td>Charterer</td><td>: <b>{{ charterer }}</b></td></tr>
-<tr><td>Attending Surveyor</td><td>: <b>{{ surveyor }}</b></td></tr>
-<tr><td>Chief Engineer</td><td>: <b>{{ chief_engineer }}</b></td></tr>
-<tr><td>Master</td><td>: <b>{{ master }}</b></td></tr>
-</table>
+<!-- DETAILS -->
+
+<div class="details">
+
+<div class="details-row">
+<div class="label">Owner</div>
+<div>: <span class="value">{{ owner }}</span></div>
+</div>
+
+<div class="details-row">
+<div class="label">Charterer</div>
+<div>: <span class="value">{{ charterer }}</span></div>
+</div>
+
+<div class="details-row">
+<div class="label">Attending Surveyor</div>
+<div>: <span class="value">{{ surveyor }}</span></div>
+</div>
+
+<div class="details-row">
+<div class="label">Chief Engineer</div>
+<div>: <span class="value">{{ chief_engineer }}</span></div>
+</div>
+
+<div class="details-row">
+<div class="label">Master</div>
+<div>: <span class="value">{{ master }}</span></div>
+</div>
+
+</div>
 
 <br><br>
 
 Date of Issue : <b>{{ issue_date }}</b>
 
-</div>
+<!-- FOOTER -->
 
 <div class="footer">
-GRM MARINE PTE LTD<br>
-2 Havelock Road, Havelock II, #07-23, Singapore (059763)<br>
+
+<div class="company">
+GRM MARINE PTE LTD
+</div>
+
+<div class="address">
+2 Havelock Road, Havelock II, #07-23, Singapore (059763)
+</div>
+
+<div class="contact">
 24 Hrs Emergency Contact : +65 96576310 | ops@grm.sg | www.grm.sg
+</div>
+
+</div>
+
 </div>
 
 </body>

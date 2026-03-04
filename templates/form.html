@@ -104,22 +104,22 @@ oninput="this.value=this.value.toUpperCase()">"
 <br>
 
 Dear <input type="text" name="principal"
-oninput="this.value=this.value.toUpperCase()">,
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">,
 
 <br><br>
 
 <p class="justify">
 We are pleased to confirm that our surveyor
 <input type="text" name="surveyor"
-oninput="this.value=this.value.toUpperCase()">
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">
 has attended on board the vessel
 "<input type="text" name="vessel"
-oninput="this.value=this.value.toUpperCase()">"
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">"
 at <input type="text" name="port"
-oninput="this.value=this.value.toUpperCase()">
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">
 to carry out
 <input type="text" name="job_scope"
-oninput="this.value=this.value.toUpperCase()">
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">
 on <input type="text" name="survey_date">.
 </p>
 
@@ -135,7 +135,7 @@ Bunker Supply 1:
 <br>
 The bunker transferring of
 <input type="text" name="bunker1_name"
-oninput="this.value=this.value.toUpperCase()">
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">
 commenced at
 <input type="text" name="bunker1_commenced_hour">
 on
@@ -160,7 +160,7 @@ Bunker Supply 2:
 <br>
 The bunker transferring of
 <input type="text" name="bunker2_name"
-oninput="this.value=this.value.toUpperCase()">
+oninput="this.value = this.value.replace(/\b\w/g, c => c.toUpperCase())">
 commenced at
 <input type="text" name="bunker2_commenced_hour">
 on
@@ -201,6 +201,16 @@ oninput="this.value=this.value.toUpperCase()"></td>
 oninput="this.value=this.value.toUpperCase()"></td>
 </tr>
 </table>
+
+<br><br>
+
+Export Format:
+<select name="export_type">
+<option value="pdf">PDF</option>
+<option value="word">Word</option>
+</select>
+
+<br><br>
 
 <button type="submit">Generate PDF</button>
 
